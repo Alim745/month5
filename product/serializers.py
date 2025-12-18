@@ -32,3 +32,12 @@ class ReviewDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = '__all__'
+
+
+class ProductWithReviewsSerializer(serializers.ModelSerializer):
+    reviews = ReviewListSerializer(many=True, read_only=True)
+    rating = serializers.FloatField(read_only=True)
+
+    class Meta:
+        model = Product
+        fields = ["id", "title", "description", "price", "category", "reviews", "rating"]
